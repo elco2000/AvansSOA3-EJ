@@ -43,7 +43,7 @@
         public Rapport GenerateRapport(string rapportName)
         {
             CloseSprint();
-            return new Rapport(rapportName);
+            return new Rapport(rapportName, this);
         }
     }
 }
