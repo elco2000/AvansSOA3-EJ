@@ -21,7 +21,7 @@ jobs:
         uses: highbyte/sonarscan-dotnet@v2.1.2
         with:
           # The key of the SonarQube project
-          sonarProjectKey: elco2000
+          sonarProjectKey: elco2000_AvansSOA3-EJ
           # The name of the SonarQube project
           sonarProjectName:  AvansSOA3-EJ
           # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
