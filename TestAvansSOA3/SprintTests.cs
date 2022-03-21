@@ -51,5 +51,20 @@ namespace TestAvansSOA3
             // Assert
             Assert.AreEqual(expectedResult, sprint.GetSprintStatus());
         }
+
+        [TestMethod]
+        // TC-S10: Voor een sprint kan er een rapportage worden gegenereerd.
+        public void TestTCS10()
+        {
+            // Arrange
+            Sprint sprint = new Sprint("SprintTest");
+
+            // Act
+            Rapport newRapport = sprint.GenerateRapport("Rapport 1");
+            Rapport expectedResult = new Rapport("Rapport 1");
+
+            // Assert
+            Assert.AreEqual(expectedResult.GetName(), newRapport.GetName());
+        }
     }
 }

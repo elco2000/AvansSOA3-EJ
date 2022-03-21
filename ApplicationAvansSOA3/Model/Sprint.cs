@@ -40,10 +40,10 @@
             this.isInPipeline = v;
         }
 
-        public void GenerateRapport(string v)
+        public Rapport GenerateRapport(string rapportName)
         {
-            // Rapport maken....
             CloseSprint();
+            return new Rapport(rapportName);
         }
     }
 }
