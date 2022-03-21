@@ -61,7 +61,7 @@ namespace TestAvansSOA3
 
             // Act
             Rapport newRapport = sprint.GenerateRapport("Rapport 1");
-            Rapport expectedResult = new Rapport("Rapport 1");
+            Rapport expectedResult = new Rapport("Rapport 1", sprint);
 
             // Assert
             Assert.AreEqual(expectedResult.GetName(), newRapport.GetName());
