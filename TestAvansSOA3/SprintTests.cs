@@ -37,6 +37,19 @@ namespace TestAvansSOA3
             Assert.AreEqual(expectedResult, sprint.GetName());
         }
 
+        [TestMethod]
+        // TC-S9: De scrum master kan een sprint review afsluiten door een samenvatting van de review voor de sprint als document up te loaden.
+        public void TestTCS9()
+        {
+            // Arrange
+            Sprint sprint = new Sprint("SprintTest");
 
+            // Act
+            sprint.GenerateRapport("Rapport 1");
+            SprintStatus expectedResult = SprintStatus.Finished;
+
+            // Assert
+            Assert.AreEqual(expectedResult, sprint.GetSprintStatus());
+        }
     }
 }

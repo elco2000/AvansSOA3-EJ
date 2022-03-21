@@ -39,5 +39,11 @@
         {
             this.isInPipeline = v;
         }
+
+        public void GenerateRapport(string v)
+        {
+            // Rapport maken....
+            CloseSprint();
+        }
     }
 }
