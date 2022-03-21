@@ -2,13 +2,15 @@
 {
     public class Sprint
     {
-        private readonly string name;
+        private string name;
         private SprintStatus status;
+        private bool isInPipeline;
 
         public Sprint(string name)
         {
             this.name = name;
             this.status = SprintStatus.Doing;
+            this.isInPipeline = false;
         }
 
         public void CloseSprint()
@@ -19,6 +21,23 @@
         public SprintStatus GetSprintStatus()
         {
             return this.status;
+        }
+
+        public string GetName() { 
+            return this.name;
+        }
+
+        public void SetName(string name)
+        {
+            if(!this.isInPipeline)
+            {
+                this.name = name;
+            }
+        }
+
+        public void SetIsInPipeline(bool v)
+        {
+            this.isInPipeline = v;
         }
     }
 }
