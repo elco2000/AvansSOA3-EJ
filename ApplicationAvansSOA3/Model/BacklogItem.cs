@@ -9,6 +9,7 @@ namespace ApplicationAvansSOA3
         private bool isDone;
         private IList activities;
         private Discussion discussion;
+        private IMember member;
         
         public BacklogItem(string title, string description)
         {
@@ -74,6 +75,24 @@ namespace ApplicationAvansSOA3
         public Discussion GetDiscussion()
         {
             return this.discussion;
+        }
+
+        public void AddMember(IMember member)
+        {
+            if(this.member is null && member.GetRole().ToUpper() == "DEVELOPER")
+            {
+                this.member = member;
+            }
+        }
+
+        public void RemoveMember()
+        {
+            this.member = null;
+        }
+
+        public IMember GetMember()
+        {
+            return this.member;
         }
     }
 }
