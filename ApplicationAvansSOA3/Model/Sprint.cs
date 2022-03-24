@@ -1,16 +1,20 @@
-﻿namespace ApplicationAvansSOA3
+﻿using System.Collections;
+
+namespace ApplicationAvansSOA3
 {
     public class Sprint
     {
         private string name;
         private SprintStatus status;
         private bool isInPipeline;
+        private IList<IMember> members;
 
         public Sprint(string name)
         {
             this.name = name;
             this.status = SprintStatus.Doing;
             this.isInPipeline = false;
+            this.members = new List<IMember>();
         }
 
         public void CloseSprint()
@@ -33,6 +37,16 @@
             {
                 this.name = name;
             }
+        }
+
+        public void AddMember(IMember developer)
+        {
+            this.members.Add(developer);
+        }
+
+        public IList<IMember> GetMembers()
+        {
+            return this.members;
         }
 
         public void SetIsInPipeline(bool v)
