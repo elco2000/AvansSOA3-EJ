@@ -43,7 +43,7 @@ namespace TestAvansSOA3
         {
             // Arrange
             Sprint sprint = new Sprint("SprintTest");
-            // Member 1 as Developer            
+            // Member 1 as scrum master            
             MemberFactory factory = new MemberFactory();
             IMember scrumMaster = factory.GetMember("scrum master");
 
@@ -72,7 +72,7 @@ namespace TestAvansSOA3
         {
             // Arrange
             Sprint sprint = new Sprint("SprintTest");
-            // Member 1 as Developer            
+            // Member 1 as Product Owner            
             MemberFactory factory = new MemberFactory();
             IMember productOwner = factory.GetMember("product owner");
 
@@ -154,6 +154,47 @@ namespace TestAvansSOA3
 
             // Assert
             Assert.AreEqual(expectedResult.GetName(), newRapport.GetName());
+        }
+
+        [TestMethod]
+        // TC-S11: Een sprint moet gekoppeld kunnen worden aan verschillende personen & als iemand gekoppeld wordt binnen een sprint moet
+        // er rollen toegewijd kunnen worden.
+        public void TestTCS11()
+        {
+            // Arrange
+            Sprint sprint = new Sprint("SprintTest");
+
+            MemberFactory factory = new MemberFactory();
+
+            // Member 1 as Developer            
+            IMember userOne = factory.GetMember("developer");
+
+            // Member 2 as Product Owner            
+            IMember userTwo = factory.GetMember("product owner");
+
+            // Member 3 as Scrum Master         
+            IMember userThree = factory.GetMember("scrum master");
+
+            // Act
+            sprint.AddMember(userOne);
+            userOne.SetRole("developer");
+
+            sprint.AddMember(userTwo);
+            userTwo.SetRole("product owner");
+
+            sprint.AddMember(userThree);
+            userThree.SetRole("scrum master");
+
+            int expectedResult = 3;
+            string expectedUserOneRole = "developer";
+            string expectedUserTwoRole = "product owner";
+            string expectedUserThreeRole = "scrum master";
+
+            // Assert
+            Assert.AreEqual(expectedResult, sprint.GetMembers().Count);
+            Assert.AreEqual(expectedUserOneRole, sprint.GetMembers()[0].GetRole());
+            Assert.AreEqual(expectedUserTwoRole, sprint.GetMembers()[1].GetRole());
+            Assert.AreEqual(expectedUserThreeRole, sprint.GetMembers()[2].GetRole());
         }
     }
 }
