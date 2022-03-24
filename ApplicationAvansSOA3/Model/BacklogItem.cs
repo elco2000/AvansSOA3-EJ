@@ -8,6 +8,7 @@ namespace ApplicationAvansSOA3
         private string description;
         private bool isDone;
         private IList activities;
+        private Discussion discussion;
         
         public BacklogItem(string title, string description)
         {
@@ -60,6 +61,19 @@ namespace ApplicationAvansSOA3
         public void SetIsDone(bool isDone)
         {
             this.isDone = isDone;
+        }
+
+        public void CreateDiscussion(string title, string description)
+        {
+            if(this.discussion == null)
+            {
+                this.discussion = new Discussion(title, description);
+            }
+        }
+
+        public Discussion GetDiscussion()
+        {
+            return this.discussion;
         }
     }
 }

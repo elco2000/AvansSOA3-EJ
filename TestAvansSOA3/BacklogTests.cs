@@ -87,6 +87,88 @@ namespace TestAvansSOA3
             // Assert
             Assert.AreEqual(expectedResult, backlogItem.GetIsDone());
         }
+
+        [TestMethod]
+        // TC-BL22: Een lid van het project kan een discussie starten bij een bepaalde backlog item.
+        public void TestTCBL22()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.CreateDiscussion("Discussie 1", "Een discussie over hoe de algoritme werkt.");
+
+            string expectedResult = "Discussie 1";
+
+            // Assert
+            Assert.AreEqual(expectedResult, backlogItem.GetDiscussion().GetTitle());
+        }
+
+        [TestMethod]
+        // TC-BL23: Een lid van het project kan reacties plaatsen bij een discussie bij een bepaalde backlog item.
+        public void TestTCBL23()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.CreateDiscussion("Discussie 1", "Een discussie over hoe de algoritme werkt.");
+
+            backlogItem.GetDiscussion().CreateResponse("Het werkt zo:", "Lorum Ipsum");
+
+            int expectedResultLength = 1;
+
+            Discussion compareDiscussion = backlogItem.GetDiscussion();
+
+            // Assert
+            Assert.AreEqual(expectedResultLength, compareDiscussion.GetResponses().Count);
+        }
+
+        [TestMethod]
+        // TC-BL24: Een lid van het project kan geen reacties meer plaatsen bij een discussie van een backlogitem als deze discussie gesloten is.
+        public void TestTCBL24()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.CreateDiscussion("Discussie 1", "Een discussie over hoe de algoritme werkt.");
+
+            backlogItem.GetDiscussion().CloseDiscussion();
+
+            backlogItem.GetDiscussion().CreateResponse("Het werkt zo:", "Lorum Ipsum");
+
+            int expectedResultLength = 0;
+
+            Discussion compareDiscussion = backlogItem.GetDiscussion();
+
+            // Assert
+            Assert.AreEqual(expectedResultLength, compareDiscussion.GetResponses().Count);
+        }
+
+        [TestMethod]
+        // TC-BL25: Een lid van het project kan geen discussie meer aanpassen bij een backlog item als deze discussie gesloten is.
+        public void TestTCBL25()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.CreateDiscussion("Discussie 1", "Een discussie over hoe de algoritme werkt.");
+
+            backlogItem.GetDiscussion().CloseDiscussion();
+
+            backlogItem.GetDiscussion().SetTitle("Discussie 1.5");
+            backlogItem.GetDiscussion().SetDescription("Een discussie over de algemene code.");
+
+            string expectedResultTitle = "Discussie 1";
+            string expectedResultDiscription = "Een discussie over hoe de algoritme werkt.";
+
+            // Assert
+            Assert.AreEqual(expectedResultTitle, backlogItem.GetDiscussion().GetTitle());
+            Assert.AreEqual(expectedResultDiscription, backlogItem.GetDiscussion().GetDescription());
+        }
+
     }
 
     
