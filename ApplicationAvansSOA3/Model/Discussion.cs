@@ -41,5 +41,26 @@ namespace ApplicationAvansSOA3
         {
             this.isClosed = true;
         }
+
+        public void SetTitle(string title)
+        {
+            if(!this.isClosed)
+            {
+                this.title = title;
+            }
+        }
+
+        public void SetDescription(string description)
+        {
+            if (!this.isClosed)
+            {
+                this.description = description;
+            }
+        }
+
+        public string GetDescription()
+        {
+            return this.description;
+        }
     }
 }

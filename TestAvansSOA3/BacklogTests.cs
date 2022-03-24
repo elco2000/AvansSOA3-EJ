@@ -146,6 +146,29 @@ namespace TestAvansSOA3
             Assert.AreEqual(expectedResultLength, compareDiscussion.GetResponses().Count);
         }
 
+        [TestMethod]
+        // TC-BL25: Een lid van het project kan geen discussie meer aanpassen bij een backlog item als deze discussie gesloten is.
+        public void TestTCBL25()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.CreateDiscussion("Discussie 1", "Een discussie over hoe de algoritme werkt.");
+
+            backlogItem.GetDiscussion().CloseDiscussion();
+
+            backlogItem.GetDiscussion().SetTitle("Discussie 1.5");
+            backlogItem.GetDiscussion().SetDescription("Een discussie over de algemene code.");
+
+            string expectedResultTitle = "Discussie 1";
+            string expectedResultDiscription = "Een discussie over hoe de algoritme werkt.";
+
+            // Assert
+            Assert.AreEqual(expectedResultTitle, backlogItem.GetDiscussion().GetTitle());
+            Assert.AreEqual(expectedResultDiscription, backlogItem.GetDiscussion().GetDescription());
+        }
+
     }
 
     
