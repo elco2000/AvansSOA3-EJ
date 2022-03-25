@@ -10,7 +10,7 @@ namespace ApplicationAvansSOA3.State
     {
         public IFaseState BacklogItemTested();
         public IFaseState BacklogItemToDo();
-        public IFaseState BacklogItemDone();
+        public IFaseState BacklogItemDone(IMember member);
         public IFaseState BacklogItemDoing();
         public IFaseState BacklogItemReadyForTesting();
     }

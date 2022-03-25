@@ -218,7 +218,13 @@ namespace TestAvansSOA3
             // Arrange
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
 
+            MemberFactory factory = new MemberFactory();
+            IMember userOne = factory.GetMember("developer");
+
             // Act
+            userOne.SetRole("developer");
+            backlogItem.AddMember(userOne);
+
             backlogItem.BacklogItemDoing();
             backlogItem.BacklogItemReadyForTesting();
             backlogItem.BacklogItemTested();
@@ -289,6 +295,56 @@ namespace TestAvansSOA3
 
             // Assert
             Assert.AreEqual(expectedResult, backlogItem.GetIsDone());
+        }
+
+        [TestMethod]
+        // TC-BL21: Alleen de (lead) developer mag de backlog item verplaatsen naar de fase done.
+        public void TestTCBL21()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            MemberFactory factory = new MemberFactory();
+            IMember userOne = factory.GetMember("developer");
+
+            // Act
+            userOne.SetRole("developer");
+            backlogItem.AddMember(userOne);
+
+            backlogItem.BacklogItemDoing();
+            backlogItem.BacklogItemReadyForTesting();
+            backlogItem.BacklogItemTested();
+            backlogItem.BacklogDone();
+            DoneState doneState = new DoneState(backlogItem);
+
+            // Assert
+            Assert.AreEqual(backlogItem.GetState().GetType(), doneState.GetType());
+        }
+
+        [TestMethod]
+        // TC-BL22: Alleen de (lead) developer mag de backlog item verplaatsen naar de fase done.
+        public void TestTCBL22()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            MemberFactory factory = new MemberFactory();
+            IMember userOne = factory.GetMember("developer");
+
+            // Act
+            userOne.SetRole("developer");
+            backlogItem.AddMember(userOne);
+            backlogItem.GetMember().SetRole("scrum master");
+
+            backlogItem.BacklogItemDoing();
+            backlogItem.BacklogItemReadyForTesting();
+            backlogItem.BacklogItemTested();
+            backlogItem.BacklogDone();
+            TestedState testedState = new TestedState(backlogItem);
+
+            // Assert
+            Assert.AreEqual(backlogItem.GetState().GetType(), testedState.GetType());
+
         }
 
         [TestMethod]

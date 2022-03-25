@@ -126,7 +126,7 @@ namespace ApplicationAvansSOA3
 
         public void BacklogDone()
         {
-            this.state = this.state.BacklogItemDone();
+            this.state = this.state.BacklogItemDone(this.member);
         }
         #endregion
     }

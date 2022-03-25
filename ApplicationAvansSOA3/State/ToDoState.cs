@@ -14,7 +14,7 @@
             return new DoingState(backlogItem);
         }
 
-        public IFaseState BacklogItemDone()
+        public IFaseState BacklogItemDone(IMember member)
         {
             return this;
         }
