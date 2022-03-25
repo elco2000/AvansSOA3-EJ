@@ -14,9 +14,9 @@
             return this;
         }
 
-        public IFaseState BacklogItemDone(IMember member)
+        public IFaseState BacklogItemDone(IMember member, bool backlogIsDone)
         {
-            if (member.GetRole().ToUpper() == "DEVELOPER")
+            if (member.GetRole().ToUpper() == "DEVELOPER" && backlogIsDone)
             {
                 return new DoneState(backlogItem);
             }

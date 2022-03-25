@@ -222,6 +222,8 @@ namespace TestAvansSOA3
             IMember userOne = factory.GetMember("developer");
 
             // Act
+            backlogItem.CloseBacklogItem();
+
             userOne.SetRole("developer");
             backlogItem.AddMember(userOne);
 
@@ -232,12 +234,32 @@ namespace TestAvansSOA3
             DoneState doneState = new DoneState(backlogItem);
 
             // Assert
-            Assert.AreEqual(backlogItem.GetState().GetType(), doneState.GetType());
+            Assert.AreEqual(doneState.GetType(), backlogItem.GetState().GetType());
         }
 
         [TestMethod]
-        // TC-BL14: Binnen een backlog item moet de mogelijkheid zijn om meer activiteiten aan te maken.
+        // TC-BL12: Indien testen twee keer gefaald is kan er vanaf ready for testing naar todo gegaan worden.
         public void TestTCBL12()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.BacklogItemDoing();
+            backlogItem.BacklogItemReadyForTesting();
+            backlogItem.BacklogItemTested();
+            backlogItem.BacklogItemReadyForTesting();
+            backlogItem.BacklogItemTested();
+            backlogItem.BacklogItemReadyForTesting();
+            ToDoState toDoState = new ToDoState(backlogItem);
+
+            // Assert
+            Assert.AreEqual(toDoState.GetType(), backlogItem.GetState().GetType());
+        }
+        
+        [TestMethod]
+        // TC-BL14: Binnen een backlog item moet de mogelijkheid zijn om meer activiteiten aan te maken.
+        public void TestTCBL14()
         {
             // Arrange
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
@@ -308,6 +330,8 @@ namespace TestAvansSOA3
             IMember userOne = factory.GetMember("developer");
 
             // Act
+            backlogItem.CloseBacklogItem();
+
             userOne.SetRole("developer");
             backlogItem.AddMember(userOne);
 

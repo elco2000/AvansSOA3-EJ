@@ -12,6 +12,7 @@ namespace ApplicationAvansSOA3
         private Discussion discussion;
         private IMember member;
         private IFaseState state;
+        private int testedFailedAmount;
         
         public BacklogItem(string title, string description)
         {
@@ -20,6 +21,7 @@ namespace ApplicationAvansSOA3
             this.isDone = false;
             this.activities = new List<Activity>();
             this.state = new ToDoState(this);
+            this.testedFailedAmount = 0;
         }
 
         public string GetTitle() 
@@ -116,7 +118,18 @@ namespace ApplicationAvansSOA3
 
         public void BacklogItemReadyForTesting()
         {
+            if (this.state.GetType() == new TestedState(this).GetType() && testedFailedAmount < 2)
+            {
+                testedFailedAmount++;
+            }
+
             this.state = this.state.BacklogItemReadyForTesting();
+
+            if (testedFailedAmount >= 2)
+            {
+                BacklogItemToDo();
+                testedFailedAmount = 0;
+            }         
         }
 
         public void BacklogItemTested()
@@ -126,7 +139,7 @@ namespace ApplicationAvansSOA3
 
         public void BacklogDone()
         {
-            this.state = this.state.BacklogItemDone(this.member);
+            this.state = this.state.BacklogItemDone(this.member, GetIsDone());
         }
         #endregion
     }
