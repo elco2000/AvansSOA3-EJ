@@ -1,4 +1,5 @@
 ﻿using ApplicationAvansSOA3;
+using ApplicationAvansSOA3.State;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections;
 using System.Collections.Generic;
@@ -115,7 +116,121 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-BL12: Binnen een backlog item moet de mogelijkheid zijn om meer activiteiten aan te maken.
+        //TC-BL6: Meerdere developers kunnen gekoppeld worden aan het activiteit.
+        public void TestTCBL6()
+        {
+            // Arrange
+            Activity activity = new Activity("Code Smells remove", "Doing some code");
+
+            MemberFactory factory = new MemberFactory();
+            IMember userOne = factory.GetMember("developer");
+            IMember userTwo = factory.GetMember("developer");
+
+            // Act
+            userOne.SetRole("developer");
+            userTwo.SetRole("developer");
+
+            activity.AddMember(userOne);
+            activity.AddMember(userTwo);
+
+            int expectedResult = 2;
+
+            // Assert
+            Assert.AreEqual(expectedResult, activity.GetMembers().Count);
+        }
+
+        [TestMethod]
+        // TC-BL7: Meerdere developers kunnen gekoppeld worden aan het activiteit.
+        public void TestTCBL7()
+        {
+            // Arrange
+            Activity activity = new Activity("Code Smells remove", "Doing some code");
+
+            MemberFactory factory = new MemberFactory();
+            IMember userOne = factory.GetMember("scrum master");
+            IMember userTwo = factory.GetMember("developer");
+
+            // Act
+            userOne.SetRole("scrum master");
+            userTwo.SetRole("developer");
+
+            activity.AddMember(userOne);
+            activity.AddMember(userTwo);
+
+            int expectedResult = 1;
+
+            // Assert
+            Assert.AreEqual(expectedResult, activity.GetMembers().Count);
+        }
+
+        [TestMethod]
+        // TC-BL8: Een fase bevat minimaal todo, doing, ready for testing, tested en done.
+        public void TestTCBL8()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.BacklogItemDoing();
+            DoingState doingState = new DoingState(backlogItem);
+
+            // Assert
+            Assert.AreEqual(backlogItem.GetState().GetType(), doingState.GetType());
+        }
+
+        [TestMethod]
+        // TC-BL9: Een fase bevat minimaal todo, doing, ready for testing, tested en done.
+        public void TestTCBL9()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.BacklogItemDoing();
+            backlogItem.BacklogItemReadyForTesting();
+            ReadyForTestingState readyForTestingState = new ReadyForTestingState(backlogItem);
+
+            // Assert
+            Assert.AreEqual(backlogItem.GetState().GetType(), readyForTestingState.GetType());
+        }
+
+        [TestMethod]
+        // TC-BL10: Een fase bevat minimaal todo, doing, ready for testing, tested en done.
+        public void TestTCBL10()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.BacklogItemDoing();
+            backlogItem.BacklogItemReadyForTesting();
+            backlogItem.BacklogItemTested();
+            TestedState testedState = new TestedState(backlogItem);
+
+            // Assert
+            Assert.AreEqual(backlogItem.GetState().GetType(), testedState.GetType());
+        }
+
+        [TestMethod]
+        // TC-BL11: Een fase bevat minimaal todo, doing, ready for testing, tested en done.
+        public void TestTCBL11()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.BacklogItemDoing();
+            backlogItem.BacklogItemReadyForTesting();
+            backlogItem.BacklogItemTested();
+            backlogItem.BacklogDone();
+            DoneState doneState = new DoneState(backlogItem);
+
+            // Assert
+            Assert.AreEqual(backlogItem.GetState().GetType(), doneState.GetType());
+        }
+
+        [TestMethod]
+        // TC-BL14: Binnen een backlog item moet de mogelijkheid zijn om meer activiteiten aan te maken.
         public void TestTCBL12()
         {
             // Arrange
