@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ApplicationAvansSOA3.State;
 
 namespace ApplicationAvansSOA3
 {
@@ -10,6 +11,7 @@ namespace ApplicationAvansSOA3
         private IList activities;
         private Discussion discussion;
         private IMember member;
+        private IFaseState state;
         
         public BacklogItem(string title, string description)
         {
@@ -17,6 +19,7 @@ namespace ApplicationAvansSOA3
             this.description = description;
             this.isDone = false;
             this.activities = new List<Activity>();
+            this.state = new ToDoState(this);
         }
 
         public string GetTitle() 
@@ -94,5 +97,37 @@ namespace ApplicationAvansSOA3
         {
             return this.member;
         }
+
+        #region States
+        public IFaseState GetState()
+        {
+            return this.state;
+        }
+
+        public void BacklogItemToDo()
+        {
+            this.state = this.state.BacklogItemToDo();   
+        }
+
+        public void BacklogItemDoing()
+        {
+            this.state = this.state.BacklogItemDoing();
+        }
+
+        public void BacklogItemReadyForTesting()
+        {
+            this.state = this.state.BacklogItemReadyForTesting();
+        }
+
+        public void BacklogItemTested()
+        {
+            this.state = this.state.BacklogItemTested();
+        }
+
+        public void BacklogDone()
+        {
+            this.state = this.state.BacklogItemDone();
+        }
+        #endregion
     }
 }
