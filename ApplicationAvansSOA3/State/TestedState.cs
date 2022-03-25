@@ -14,9 +14,13 @@
             return this;
         }
 
-        public IFaseState BacklogItemDone()
+        public IFaseState BacklogItemDone(IMember member, bool backlogIsDone)
         {
-            return new DoneState(backlogItem);
+            if (member.GetRole().ToUpper() == "DEVELOPER" && backlogIsDone)
+            {
+                return new DoneState(backlogItem);
+            }
+            return this;
         }
 
         public IFaseState BacklogItemReadyForTesting()
