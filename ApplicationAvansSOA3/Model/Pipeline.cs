@@ -5,22 +5,22 @@ namespace ApplicationAvansSOA3
     public class Pipeline
     {
         private bool isReleased;
-        private GitAction gitAction;
+        private GitAction? gitAction;
 
         public Pipeline()
         {
-            this.isReleased = false;
+            isReleased = false;
         }
 
-        public void StartPipeline()
+        public static void StartPipeline()
         {
-            Sources sources = new Sources();
-            Package package = new Package();
-            Build build = new Build();
-            Test test = new Test();
-            Analyse analyse = new Analyse();
-            Deploy deploy = new Deploy();
-            Utility utility = new Utility();
+            Sources sources = new();
+            Package package = new();
+            Build build = new();
+            Test test = new();
+            Analyse analyse = new();
+            Deploy deploy = new();
+            Utility utility = new();
 
             sources.AddComponent(package);
             package.AddComponent(build);
@@ -29,7 +29,7 @@ namespace ApplicationAvansSOA3
             analyse.AddComponent(deploy);
             deploy.AddComponent(utility);
 
-            ActivatedVisitor activatedVisitor = new ActivatedVisitor();
+            ActivatedVisitor activatedVisitor = new();
             sources.AcceptVisitor(activatedVisitor);
         }
 
@@ -42,7 +42,7 @@ namespace ApplicationAvansSOA3
 
         public GitAction GetGitAction()
         {
-            return this.gitAction;
+            return gitAction;
         }
     }
 }

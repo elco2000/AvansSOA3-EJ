@@ -14,7 +14,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
             base.AcceptVisitor(visitor);
         }
 
-        public void ActivatedAnalyse()
+        public static void ActivatedAnalyse()
         {
             Console.Write("De code wordt geanalyseerd door SonarCloud.");
         }

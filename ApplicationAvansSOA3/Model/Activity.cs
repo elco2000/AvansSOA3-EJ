@@ -17,7 +17,7 @@
 
         public bool GetIsDone()
         {
-            return this.isDone;
+            return isDone;
         }
 
         public void SetIsDone(bool isDone)
@@ -35,7 +35,7 @@
 
         public IList<IMember> GetMembers()
         {
-            return this.members;
+            return members;
         }
     }
 }

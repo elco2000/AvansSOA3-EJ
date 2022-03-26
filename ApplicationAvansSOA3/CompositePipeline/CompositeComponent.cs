@@ -8,7 +8,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
 {
     public class CompositeComponent : Component
     {
-        private IList<Component> components;
+        private readonly IList<Component> components;
 
         public CompositeComponent()
         {

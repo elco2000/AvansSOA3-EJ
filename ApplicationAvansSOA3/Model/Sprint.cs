@@ -8,23 +8,23 @@ namespace ApplicationAvansSOA3
         private string name;
         private SprintStatus status;
         private bool isInPipeline;
-        private IList<IMember> members;
-        private Pipeline pipeline;
+        private readonly IList<IMember> members;
+        private readonly Pipeline pipeline;
         private Backlog ?backlog;
 
         public Sprint(string name)
         {
             this.name = name;
-            this.status = SprintStatus.Doing;
-            this.isInPipeline = false;
-            this.members = new List<IMember>();
-            this.pipeline = new Pipeline();
+            status = SprintStatus.Doing;
+            isInPipeline = false;
+            members = new List<IMember>();
+            pipeline = new Pipeline();
         }
 
         public void CloseSprint()
         {
             bool isFinished = true;
-            Service service = new Service();
+            Service service = new();
             INotificationEmail notification = new Adapter(service);
 
             if (backlog != null)
@@ -43,11 +43,11 @@ namespace ApplicationAvansSOA3
             {
                 notification.ConvertInformationToEmail("Sprint is gesloten. En Pipeline wordt gestart!");
 
-                this.status = SprintStatus.Finished;
+                status = SprintStatus.Finished;
 
                 SetIsInPipeline(true);
 
-                this.pipeline.StartPipeline();
+                Pipeline.StartPipeline();
             } else
             { 
                 notification.ConvertInformationToEmail("Sprint release is geannuleerd.");
@@ -56,16 +56,16 @@ namespace ApplicationAvansSOA3
 
         public SprintStatus GetSprintStatus()
         {
-            return this.status;
+            return status;
         }
 
         public string GetName() { 
-            return this.name;
+            return name;
         }
 
         public void SetName(string name)
         {
-            if(!this.isInPipeline)
+            if(!isInPipeline)
             {
                 this.name = name;
             }
@@ -73,17 +73,17 @@ namespace ApplicationAvansSOA3
 
         public void AddMember(IMember developer)
         {
-            this.members.Add(developer);
+            members.Add(developer);
         }
 
         public IList<IMember> GetMembers()
         {
-            return this.members;
+            return members;
         }
 
         public void SetIsInPipeline(bool v)
         {
-            this.isInPipeline = v;
+            isInPipeline = v;
         }
 
         public Rapport GenerateRapport(string rapportName)
@@ -99,7 +99,7 @@ namespace ApplicationAvansSOA3
 
         public Backlog GetBacklog()
         {
-            return this.backlog; 
+            return backlog; 
         }
     }
 }

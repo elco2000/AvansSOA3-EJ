@@ -17,7 +17,7 @@ namespace TestAvansSOA3
             Sprint sprint = new Sprint("SprintTest");
             // Member 1 as Developer            
             MemberFactory factory = new MemberFactory();
-            IMember developer = factory.GetMember("developer");
+            IMember developer = MemberFactory.GetMember("developer");
             
 
 
@@ -47,7 +47,7 @@ namespace TestAvansSOA3
             Sprint sprint = new Sprint("SprintTest");
             // Member 1 as scrum master            
             MemberFactory factory = new MemberFactory();
-            IMember scrumMaster = factory.GetMember("scrum master");
+            IMember scrumMaster = MemberFactory.GetMember("scrum master");
 
             // Act
             sprint.AddMember(scrumMaster);
@@ -76,7 +76,7 @@ namespace TestAvansSOA3
             Sprint sprint = new Sprint("SprintTest");
             // Member 1 as Product Owner            
             MemberFactory factory = new MemberFactory();
-            IMember productOwner = factory.GetMember("product owner");
+            IMember productOwner = MemberFactory.GetMember("product owner");
 
             // Act
             sprint.AddMember(productOwner);
@@ -210,13 +210,13 @@ namespace TestAvansSOA3
             MemberFactory factory = new MemberFactory();
 
             // Member 1 as Developer            
-            IMember memberOne = factory.GetMember("developer");
+            IMember memberOne = MemberFactory.GetMember("developer");
 
             // Member 2 as Product Owner            
-            IMember memberTwo = factory.GetMember("product owner");
+            IMember memberTwo = MemberFactory.GetMember("product owner");
 
             // Member 3 as Scrum Master         
-            IMember memberThree = factory.GetMember("scrum master");
+            IMember memberThree = MemberFactory.GetMember("scrum master");
 
             // Act
             sprint.AddMember(memberOne);

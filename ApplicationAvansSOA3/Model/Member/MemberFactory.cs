@@ -2,7 +2,7 @@
 {
     public class MemberFactory
     {
-        public IMember GetMember(string type)
+        public static IMember GetMember(string type)
         {
             switch (type.ToUpper())
             {

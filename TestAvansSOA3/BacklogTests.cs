@@ -38,7 +38,7 @@ namespace TestAvansSOA3
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
                 
             MemberFactory factory = new MemberFactory();
-            IMember developer = factory.GetMember("developer");
+            IMember developer = MemberFactory.GetMember("developer");
 
             // Act
             developer.SetRole("developer");
@@ -59,8 +59,8 @@ namespace TestAvansSOA3
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
 
             MemberFactory factory = new MemberFactory();
-            IMember developerOne = factory.GetMember("developer");
-            IMember developerTwo = factory.GetMember("developer");
+            IMember developerOne = MemberFactory.GetMember("developer");
+            IMember developerTwo = MemberFactory.GetMember("developer");
 
             // Act
             developerOne.SetRole("developer");
@@ -86,7 +86,7 @@ namespace TestAvansSOA3
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
 
             MemberFactory factory = new MemberFactory();
-            IMember scrumMaster = factory.GetMember("scrum master");
+            IMember scrumMaster = MemberFactory.GetMember("scrum master");
 
             // Act
             scrumMaster.SetRole("scrum master");
@@ -105,7 +105,7 @@ namespace TestAvansSOA3
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
 
             MemberFactory factory = new MemberFactory();
-            IMember developer = factory.GetMember("developer");
+            IMember developer = MemberFactory.GetMember("developer");
 
             // Act
             developer.SetRole("developer");
@@ -126,8 +126,8 @@ namespace TestAvansSOA3
             Activity activity = new Activity("Code Smells remove", "Doing some code");
 
             MemberFactory factory = new MemberFactory();
-            IMember memberOne = factory.GetMember("developer");
-            IMember memberTwo = factory.GetMember("developer");
+            IMember memberOne = MemberFactory.GetMember("developer");
+            IMember memberTwo = MemberFactory.GetMember("developer");
 
             // Act
             memberOne.SetRole("developer");
@@ -150,8 +150,8 @@ namespace TestAvansSOA3
             Activity activity = new Activity("Code Smells remove", "Doing some code");
 
             MemberFactory factory = new MemberFactory();
-            IMember memberOne = factory.GetMember("scrum master");
-            IMember memberTwo = factory.GetMember("developer");
+            IMember memberOne = MemberFactory.GetMember("scrum master");
+            IMember memberTwo = MemberFactory.GetMember("developer");
 
             // Act
             memberOne.SetRole("scrum master");
@@ -222,7 +222,7 @@ namespace TestAvansSOA3
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
 
             MemberFactory factory = new MemberFactory();
-            IMember memberOne = factory.GetMember("developer");
+            IMember memberOne = MemberFactory.GetMember("developer");
 
             // Act
             backlogItem.CloseBacklogItem();
@@ -403,7 +403,7 @@ namespace TestAvansSOA3
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
 
             MemberFactory factory = new MemberFactory();
-            IMember memberOne = factory.GetMember("developer");
+            IMember memberOne = MemberFactory.GetMember("developer");
 
             // Act
             backlogItem.CloseBacklogItem();
@@ -429,7 +429,7 @@ namespace TestAvansSOA3
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
 
             MemberFactory factory = new MemberFactory();
-            IMember memberOne = factory.GetMember("developer");
+            IMember memberOne = MemberFactory.GetMember("developer");
 
             // Act
             memberOne.SetRole("developer");

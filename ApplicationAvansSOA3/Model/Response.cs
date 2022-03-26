@@ -10,7 +10,7 @@
         {
             this.title = title;
             this.text = text;
-            this.date = DateTime.Now;
+            date = DateTime.Now;
         }
     }
 }

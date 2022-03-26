@@ -5,8 +5,8 @@ namespace ApplicationAvansSOA3
 {
     public class Developer : IMember
     {
-        private string name;
-        private string role;
+        private string? name;
+        private string? role;
 
         public string GetName()
         {
@@ -30,7 +30,7 @@ namespace ApplicationAvansSOA3
 
         public void Update(string message)
         {
-            Service service = new Service();
+            Service service = new();
             INotificationEmail notification = new Adapter(service);
 
             notification.ConvertInformationToEmail(message);

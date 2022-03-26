@@ -13,7 +13,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
             visitor.VisitUtility(this);
         }
 
-        public void ActivatedUtility()
+        public static void ActivatedUtility()
         {
             Console.Write("Overige commands worden uitgevoerd. De pipeline is succesvol voltooid!");
         }

@@ -14,7 +14,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
             base.AcceptVisitor(visitor);
         }
 
-        public void ActivatedSources()
+        public static void ActivatedSources()
         {
             Console.Write("De source code wordt opgehaald.");
         }

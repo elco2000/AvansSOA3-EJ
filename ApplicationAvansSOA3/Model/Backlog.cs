@@ -6,7 +6,7 @@ namespace ApplicationAvansSOA3
     {
         private string title;
         private string description;
-        private SortedList<int, BacklogItem> backlogItems;
+        private readonly SortedList<int, BacklogItem> backlogItems;
         private int nrBacklogItem;
 
         public Backlog(string title, string description)
@@ -25,7 +25,7 @@ namespace ApplicationAvansSOA3
 
         public SortedList<int, BacklogItem> getBacklogItems()
         {
-            return this.backlogItems;
+            return backlogItems;
         }
     }
 }

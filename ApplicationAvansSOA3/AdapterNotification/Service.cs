@@ -8,7 +8,7 @@ namespace ApplicationAvansSOA3.AdapterNotification
 {
     public class Service
     {
-        public string SendEmail()
+        public static string SendEmail()
         {
             return "Verzend email: ";
         }

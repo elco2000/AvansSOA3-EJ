@@ -7,32 +7,32 @@ namespace ApplicationAvansSOA3
     {
         private string title;
         private string description;
-        private DateTime date;
+        private readonly DateTime date;
         private bool isClosed;
         private IList responses;
 
-        public Discussion(string title, string discussion)
+        public Discussion(string title, string description)
         {
             this.title = title;
-            this.description = discussion;
-            this.date = DateTime.Now;
-            this.isClosed = false;
-            this.responses = new List<Response>();
+            this.description = description;
+            date = DateTime.Now;
+            isClosed = false;
+            responses = new List<Response>();
         }
 
         public string GetTitle()
         {
-            return this.title;
+            return title;
         }
 
         public void CreateResponse(string title, string text)
         {
-            if(!this.isClosed)
+            if(!isClosed)
             {
-                Service service = new Service();
+                Service service = new();
                 INotificationEmail notification = new Adapter(service);
 
-                notification.ConvertInformationToEmail("Reactie geplaatst bij: " + this.title + " - " + this.description);
+                notification.ConvertInformationToEmail("Reactie geplaatst bij: " + this.title + " - " + description);
 
                 responses.Add(new Response(title, text));
             }
@@ -40,17 +40,17 @@ namespace ApplicationAvansSOA3
 
         public IList GetResponses()
         {
-            return this.responses;
+            return responses;
         }
 
         public void CloseDiscussion()
         {
-            this.isClosed = true;
+            isClosed = true;
         }
 
         public void SetTitle(string title)
         {
-            if(!this.isClosed)
+            if(!isClosed)
             {
                 this.title = title;
             }
@@ -58,7 +58,7 @@ namespace ApplicationAvansSOA3
 
         public void SetDescription(string description)
         {
-            if (!this.isClosed)
+            if (!isClosed)
             {
                 this.description = description;
             }
@@ -66,7 +66,7 @@ namespace ApplicationAvansSOA3
 
         public string GetDescription()
         {
-            return this.description;
+            return description;
         }
     }
 }
