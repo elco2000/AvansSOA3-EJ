@@ -31,6 +31,7 @@
 
         public IFaseState BacklogItemToDo()
         {
+            backlogItem.Notify("scrum master", "De backlog item is terug verplaatst naar todo.");
             return new ToDoState(backlogItem);
         }
     }

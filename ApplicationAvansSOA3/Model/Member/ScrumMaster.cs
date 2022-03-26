@@ -1,4 +1,7 @@
-﻿namespace ApplicationAvansSOA3
+﻿using ApplicationAvansSOA3.AdapterNotification;
+using ApplicationAvansSOA3.Observer;
+
+namespace ApplicationAvansSOA3
 {
     public class ScrumMaster : IMember
     {
@@ -23,6 +26,14 @@
         public void SetRole(string role)
         {
             this.role = role;
+        }
+
+        public void Update(string message)
+        {
+            Service service = new Service();
+            INotificationEmail notification = new Adapter(service);
+
+            notification.ConvertInformationToEmail(message);
         }
     }
 }

@@ -21,6 +21,7 @@
 
         public IFaseState BacklogItemReadyForTesting()
         {
+            backlogItem.Notify("developer", "Backlog item staat klaar in readyfortesting.");
             return new ReadyForTestingState(backlogItem);
         }
 

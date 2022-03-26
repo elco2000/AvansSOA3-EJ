@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using ApplicationAvansSOA3.Observer;
 using ApplicationAvansSOA3.State;
 
 namespace ApplicationAvansSOA3
 {
-    public class BacklogItem
+    public class BacklogItem : INotifier
     {
         private string title;
         private string description;
@@ -13,7 +14,9 @@ namespace ApplicationAvansSOA3
         private IMember member;
         private IFaseState state;
         private int testedFailedAmount;
-        
+
+        private IList<IMember> _subscribers = new List<IMember>();
+
         public BacklogItem(string title, string description)
         {
             this.title = title;
@@ -142,5 +145,27 @@ namespace ApplicationAvansSOA3
             this.state = this.state.BacklogItemDone(this.member, GetIsDone());
         }
         #endregion
+
+        public void Subscribe(IMember subscriber)
+        {
+            _subscribers.Add(subscriber);
+        }
+
+        public void Unsubscribe(IMember subscriber)
+        {
+            _subscribers.Remove(subscriber);
+        }
+
+        public void Notify(string role, string message)
+        {
+            foreach (var subscriber in _subscribers)
+            {
+                if (subscriber.GetRole().ToUpper() == role.ToUpper())
+                {
+                    subscriber.Update(message);
+                }
+            }
+        }
+
     }
 }
