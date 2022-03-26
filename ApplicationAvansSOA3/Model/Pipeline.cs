@@ -33,10 +33,7 @@ namespace ApplicationAvansSOA3
             sources.AcceptVisitor(activatedVisitor);
         }
 
-        public void SendNotificationByError()
-        {
 
-        }
 
         public void AddGitAction(GitAction gitAction)
         {
