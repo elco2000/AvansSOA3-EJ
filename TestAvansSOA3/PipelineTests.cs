@@ -14,9 +14,63 @@ namespace TestAvansSOA3
     public class PipelineTests
     {
         [TestMethod]
-        // TC-DO5: Het DevOps systeem moet de actie sources ondersteunen,
+        // TC-DO1: Een geannuleerde release wordt gemeld doormiddel een automatisch bericht naar de product owner en scrum master.
+        public void TestTCDO1()
+        {
+            // Arrange
+            Sprint sprint = new Sprint("Test sprint");
+            Backlog backlog = new Backlog("1. Backlog Test", "Doing some code");
+            BacklogItem backlogItem = new BacklogItem("Testing", "Testing all of the code");
+
+            // Act
+            backlog.AddBacklogItem(backlogItem);
+
+            sprint.SetBacklog(backlog);
+
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            sprint.GenerateRapport("Release 1");
+
+            string expectedResult = "Verzend email: Sprint release is geannuleerd.";
+
+            // Assert
+            Assert.AreEqual(expectedResult, stringWriter.ToString());
+        }
+
+        [TestMethod]
+        // TC-DO2: Als een release is goedgekeurd wordt er een pipeline gestart.
+        public void TestTCDO2()
+        {
+            // Arrange
+            Sprint sprint = new Sprint("Test sprint");
+            Backlog backlog = new Backlog("1. Backlog Test", "Doing some code");
+            BacklogItem backlogItem = new BacklogItem("Testing", "Testing all of the code");
+
+            // Act
+            backlogItem.SetIsDone(true);
+            backlog.AddBacklogItem(backlogItem);
+
+            sprint.SetBacklog(backlog);
+
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            sprint.GenerateRapport("Release 1");
+
+            string expectedResult = "Verzend email: Sprint is gesloten. En Pipeline wordt gestart!De source code wordt opgehaald.\nDe packages worden op dit moment geïnstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
+
+            SprintStatus expectedStatus = SprintStatus.Finished;
+
+            // Assert
+            Assert.AreEqual(expectedResult, stringWriter.ToString());
+            Assert.AreEqual(expectedStatus, sprint.GetSprintStatus());
+        }
+
+        [TestMethod]
+        // TC-DO3: Het DevOps systeem moet de actie sources ondersteunen,
         // zodat gebouwde source code opgehaald kan worden in een context waardoor de hele pipeline kan worden uitgevoerd.
-        public void TestTCDO5()
+        public void TestTCDO3()
         {
             // Arrange
             Sources sources = new Sources();
@@ -34,9 +88,9 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-DO6: Het DevOps systeem moet de actie package ondersteunen, zodat er verschillende packages/libraries
+        // TC-DO4: Het DevOps systeem moet de actie package ondersteunen, zodat er verschillende packages/libraries
         // geïnstalleerd kunnen worden waar je eigen software afhankelijk van is.
-        public void TestTCDO6()
+        public void TestTCDO4()
         {
             // Arrange
             Package package = new Package();
@@ -54,8 +108,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-DO7: Het DevOps systeem moet de actie build ondersteunen, zodat de software kan builden en linken met verschillende builds.
-        public void TestTCDO7()
+        // TC-DO5: Het DevOps systeem moet de actie build ondersteunen, zodat de software kan builden en linken met verschillende builds.
+        public void TestTCDO5()
         {
             // Arrange
             Build build = new Build();
@@ -73,8 +127,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-DO8: Het DevOps systeem moet de actie test ondersteunen, zodat de testen uitgevoerd kunnen worden.
-        public void TestTCDO8()
+        // TC-DO6: Het DevOps systeem moet de actie test ondersteunen, zodat de testen uitgevoerd kunnen worden.
+        public void TestTCDO6()
         {
             // Arrange
             Test test = new Test();
@@ -92,8 +146,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-DO9: Het DevOps systeem moet de actie analyse ondersteunen, zodat de code geanalyseerd kan worden door externe tool.
-        public void TestTCDO9()
+        // TC-DO7: Het DevOps systeem moet de actie analyse ondersteunen, zodat de code geanalyseerd kan worden door externe tool.
+        public void TestTCDO7()
         {
             // Arrange
             Analyse analyse = new Analyse();
@@ -111,8 +165,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-DO10: Het DevOps systeem moet de actie deploy ondersteunen, zodat er acties aanwezig zijn voor de deployment.
-        public void TestTCDO10()
+        // TC-DO8: Het DevOps systeem moet de actie deploy ondersteunen, zodat er acties aanwezig zijn voor de deployment.
+        public void TestTCDO8()
         {
             // Arrange
             Deploy deploy = new Deploy();
@@ -130,8 +184,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-DO11: Het DevOps systeem moet de actie utility ondersteunen, waaronder overige commando’s vallen die niet een bepaalde categorie thuis hoort.
-        public void TestTCDO11()
+        // TC-DO9: Het DevOps systeem moet de actie utility ondersteunen, waaronder overige commando’s vallen die niet een bepaalde categorie thuis hoort.
+        public void TestTCDO9()
         {
             // Arrange
             Utility utility = new Utility();
