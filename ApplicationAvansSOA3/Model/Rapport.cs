@@ -11,15 +11,15 @@
         public Rapport(string name, Sprint sprint)
         {
             this.name = name;
-            this.rapportDate = DateTime.Now;
-            this.editedDate = DateTime.Now;
-            this.exportFormats = ExportFormats.textfile;
+            rapportDate = DateTime.Now;
+            editedDate = DateTime.Now;
+            exportFormats = ExportFormats.textfile;
             this.sprint = sprint;
         }
 
         public string GetName()
         {
-            return this.name;
+            return name;
         }
     }
 }

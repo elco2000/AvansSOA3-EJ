@@ -79,7 +79,7 @@ namespace TestAvansSOA3
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            sources.ActivatedSources();
+            Sources.ActivatedSources();
 
             string expectedResult = "De source code wordt opgehaald.";
 
@@ -99,7 +99,7 @@ namespace TestAvansSOA3
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            package.ActivatedPackage();
+            Package.ActivatedPackage();
 
             string expectedResult = "De packages worden op dit moment geinstalleerd.";
 
@@ -118,7 +118,7 @@ namespace TestAvansSOA3
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            build.ActivatedBuild();
+            Build.ActivatedBuild();
 
             string expectedResult = "De software wordt gebuild. Maakt connectie met andere verschillende builds.";
 
@@ -137,7 +137,7 @@ namespace TestAvansSOA3
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            test.ActivatedTest();
+            Test.ActivatedTest();
 
             string expectedResult = "De code wordt getest met alle beschikbaar testen.";
 
@@ -156,7 +156,7 @@ namespace TestAvansSOA3
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            analyse.ActivatedAnalyse();
+            Analyse.ActivatedAnalyse();
 
             string expectedResult = "De code wordt geanalyseerd door SonarCloud.";
 
@@ -175,7 +175,7 @@ namespace TestAvansSOA3
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            deploy.ActivatedDeploy();
+            Deploy.ActivatedDeploy();
 
             string expectedResult = "De code wordt gedeployed op de gewenste omgeving.";
 
@@ -194,7 +194,7 @@ namespace TestAvansSOA3
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            utility.ActivatedUtility();
+            Utility.ActivatedUtility();
 
             string expectedResult = "Overige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
 
@@ -213,7 +213,7 @@ namespace TestAvansSOA3
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            pipeline.StartPipeline();
+            Pipeline.StartPipeline();
 
             string expectedResult = "De source code wordt opgehaald.\nDe packages worden op dit moment geinstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
 

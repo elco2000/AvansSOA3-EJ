@@ -14,7 +14,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
             base.AcceptVisitor(visitor);
         }
 
-        public void ActivatedPackage()
+        public static void ActivatedPackage()
         {
             Console.Write("De packages worden op dit moment geinstalleerd.");
         }

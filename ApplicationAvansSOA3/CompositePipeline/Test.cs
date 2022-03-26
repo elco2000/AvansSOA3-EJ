@@ -14,7 +14,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
             base.AcceptVisitor(visitor);
         }
 
-        public void ActivatedTest()
+        public static void ActivatedTest()
         {
             Console.Write("De code wordt getest met alle beschikbaar testen.");
         }

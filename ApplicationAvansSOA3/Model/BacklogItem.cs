@@ -6,16 +6,16 @@ namespace ApplicationAvansSOA3
 {
     public class BacklogItem : INotifier
     {
-        private string title;
-        private string description;
+        private readonly string title;
+        private readonly string description;
         private bool isDone;
         private IList activities;
-        private Discussion discussion;
-        private IMember member;
+        private Discussion? discussion;
+        private IMember? member;
         private IFaseState state;
         private int testedFailedAmount;
 
-        private IList<IMember> _subscribers = new List<IMember>();
+        private readonly IList<IMember> _subscribers = new List<IMember>();
 
         public BacklogItem(string title, string description)
         {
@@ -64,7 +64,7 @@ namespace ApplicationAvansSOA3
 
         public bool GetIsDone()
         {
-            return this.isDone;
+            return isDone;
         }
 
         public void SetIsDone(bool isDone)
@@ -74,15 +74,15 @@ namespace ApplicationAvansSOA3
 
         public void CreateDiscussion(string title, string description)
         {
-            if(this.discussion == null)
+            if(discussion == null)
             {
-                this.discussion = new Discussion(title, description);
+                discussion = new Discussion(title, description);
             }
         }
 
         public Discussion GetDiscussion()
         {
-            return this.discussion;
+            return discussion;
         }
 
         public void AddMember(IMember member)
@@ -95,38 +95,38 @@ namespace ApplicationAvansSOA3
 
         public void RemoveMember()
         {
-            this.member = null;
+            member = null;
         }
 
         public IMember GetMember()
         {
-            return this.member;
+            return member;
         }
 
         #region States
         public IFaseState GetState()
         {
-            return this.state;
+            return state;
         }
 
         public void BacklogItemToDo()
         {
-            this.state = this.state.BacklogItemToDo();   
+            state = state.BacklogItemToDo();   
         }
 
         public void BacklogItemDoing()
         {
-            this.state = this.state.BacklogItemDoing();
+            state = state.BacklogItemDoing();
         }
 
         public void BacklogItemReadyForTesting()
         {
-            if (this.state.GetType() == new TestedState(this).GetType() && testedFailedAmount < 2)
+            if (state.GetType() == new TestedState(this).GetType() && testedFailedAmount < 2)
             {
                 testedFailedAmount++;
             }
 
-            this.state = this.state.BacklogItemReadyForTesting();
+            state = state.BacklogItemReadyForTesting();
 
             if (testedFailedAmount >= 2)
             {
@@ -137,12 +137,12 @@ namespace ApplicationAvansSOA3
 
         public void BacklogItemTested()
         {
-            this.state = this.state.BacklogItemTested();
+            state = state.BacklogItemTested();
         }
 
         public void BacklogDone()
         {
-            this.state = this.state.BacklogItemDone(this.member, GetIsDone());
+            state = state.BacklogItemDone(member, GetIsDone());
         }
         #endregion
 

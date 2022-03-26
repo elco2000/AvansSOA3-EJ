@@ -14,7 +14,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
             base.AcceptVisitor(visitor);
         }
 
-        public void ActivatedBuild()
+        public static void ActivatedBuild()
         {
             Console.Write("De software wordt gebuild. Maakt connectie met andere verschillende builds.");
         }

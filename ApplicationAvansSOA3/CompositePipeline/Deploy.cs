@@ -14,7 +14,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
             base.AcceptVisitor(visitor);
         }
 
-        public void ActivatedDeploy()
+        public static void ActivatedDeploy()
         {
             Console.Write("De code wordt gedeployed op de gewenste omgeving.");
         }

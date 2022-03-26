@@ -4,7 +4,7 @@ namespace ApplicationAvansSOA3
 {
     public class GitAction
     {
-        private string name;
+        private readonly string name;
         private IGitBehavior gitBehavior;
 
         public GitAction(string name, IGitBehavior gitBehavior)

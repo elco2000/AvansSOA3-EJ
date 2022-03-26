@@ -18,7 +18,7 @@ namespace ApplicationAvansSOA3.AdapterNotification
 
         public void ConvertInformationToEmail(string message)
         {
-            string serviceText = $"{this._service.SendEmail()}";
+            string serviceText = $"{Service.SendEmail()}";
             Console.Write(serviceText + message);
         }
     }
