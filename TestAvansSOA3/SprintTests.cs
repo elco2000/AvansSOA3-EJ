@@ -1,5 +1,7 @@
 using ApplicationAvansSOA3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
 
 namespace TestAvansSOA3
 {
@@ -127,8 +129,27 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-S9: De scrum master kan een sprint review afsluiten door een samenvatting van de review voor de sprint als document up te loaden.
-        public void TestTCS9()
+        // TC-S6: Wanneer de sprint gereleased en afgesloten is wordt er een melding gestuurd naar de scrum master en product owner.
+        public void TestTCS6()
+        {
+            // Arrange
+            Sprint sprint = new Sprint("SprintTest");
+
+            // Act
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            sprint.GenerateRapport("Rapport 1");
+
+            string expectedResult = "Verzend email: Sprint is gesloten.";
+
+            // Assert
+            Assert.AreEqual(expectedResult, stringWriter.ToString());
+        }
+
+        [TestMethod]
+        // TC-S7: De scrum master kan een sprint review afsluiten door een samenvatting van de review voor de sprint als document up te loaden.
+        public void TestTCS7()
         {
             // Arrange
             Sprint sprint = new Sprint("SprintTest");
@@ -142,8 +163,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-S10: Voor een sprint kan er een rapportage worden gegenereerd.
-        public void TestTCS10()
+        // TC-S8: Voor een sprint kan er een rapportage worden gegenereerd.
+        public void TestTCS8()
         {
             // Arrange
             Sprint sprint = new Sprint("SprintTest");
@@ -157,9 +178,9 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-S11: Een sprint moet gekoppeld kunnen worden aan verschillende personen & als iemand gekoppeld wordt binnen een sprint moet
+        // TC-S9: Een sprint moet gekoppeld kunnen worden aan verschillende personen & als iemand gekoppeld wordt binnen een sprint moet
         // er rollen toegewijd kunnen worden.
-        public void TestTCS11()
+        public void TestTCS9()
         {
             // Arrange
             Sprint sprint = new Sprint("SprintTest");

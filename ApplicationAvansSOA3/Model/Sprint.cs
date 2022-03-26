@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ApplicationAvansSOA3.AdapterNotification;
+using System.Collections;
 
 namespace ApplicationAvansSOA3
 {
@@ -19,6 +20,11 @@ namespace ApplicationAvansSOA3
 
         public void CloseSprint()
         {
+            Service service = new Service();
+            INotificationEmail notification = new Adapter(service);
+
+            notification.ConvertInformationToEmail("Sprint is gesloten.");
+
             this.status = SprintStatus.Finished;
         }
 
