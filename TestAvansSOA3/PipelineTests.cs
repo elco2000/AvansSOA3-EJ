@@ -1,4 +1,5 @@
-﻿using ApplicationAvansSOA3.CompositePipeline;
+﻿using ApplicationAvansSOA3;
+using ApplicationAvansSOA3.CompositePipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -142,6 +143,25 @@ namespace TestAvansSOA3
             utility.ActivatedUtility();
 
             string expectedResult = "Overige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
+
+            // Assert
+            Assert.AreEqual(expectedResult, stringWriter.ToString());
+        }
+
+        [TestMethod]
+        // Not (Non)Functional tests. Test for coverage.
+        public void TestTCDOExtra()
+        {
+            // Arrange
+            Pipeline pipeline = new Pipeline();
+
+            // Act
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            pipeline.StartPipeline();
+
+            string expectedResult = "De source code wordt opgehaald.\nDe packages worden op dit moment geïnstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
 
             // Assert
             Assert.AreEqual(expectedResult, stringWriter.ToString());
