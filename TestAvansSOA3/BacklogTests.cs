@@ -528,7 +528,28 @@ namespace TestAvansSOA3
             Assert.AreEqual(expectedResultDiscription, backlogItem.GetDiscussion().GetDescription());
         }
 
+        [TestMethod]
+        // TC-BL25: Een lid van het project krijgt een melding als er een reactie is geplaats bij een discussie.
+        public void TestTCBL25()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+
+            // Act
+            backlogItem.CreateDiscussion("Discussie 1", "Een discussie over hoe de algoritme werkt.");
+
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            backlogItem.GetDiscussion().CreateResponse("Het werkt zo:", "Lorum Ipsum");
+
+            string expectedResult = "Verzend email: Reactie geplaatst bij: Discussie 1 - Een discussie over hoe de algoritme werkt.";
+
+            // Assert
+            Assert.AreEqual(expectedResult, stringWriter.ToString());
+        }
+
     }
 
-    
+
 }
