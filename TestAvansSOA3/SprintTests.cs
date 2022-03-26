@@ -154,7 +154,8 @@ namespace TestAvansSOA3
             Console.SetOut(stringWriter);
 
             sprint.GenerateRapport("Rapport 1");
-
+            
+            // String doet raar in gitactions pipeline?
             string expectedResult = "Verzend email: Sprint is gesloten. En Pipeline wordt gestart!De source code wordt opgehaald.\nDe packages worden op dit moment geïnstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
 
             // Assert
