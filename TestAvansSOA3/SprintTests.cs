@@ -210,23 +210,23 @@ namespace TestAvansSOA3
             MemberFactory factory = new MemberFactory();
 
             // Member 1 as Developer            
-            IMember userOne = factory.GetMember("developer");
+            IMember memberOne = factory.GetMember("developer");
 
             // Member 2 as Product Owner            
-            IMember userTwo = factory.GetMember("product owner");
+            IMember memberTwo = factory.GetMember("product owner");
 
             // Member 3 as Scrum Master         
-            IMember userThree = factory.GetMember("scrum master");
+            IMember memberThree = factory.GetMember("scrum master");
 
             // Act
-            sprint.AddMember(userOne);
-            userOne.SetRole("developer");
+            sprint.AddMember(memberOne);
+            memberOne.SetRole("developer");
 
-            sprint.AddMember(userTwo);
-            userTwo.SetRole("product owner");
+            sprint.AddMember(memberTwo);
+            memberTwo.SetRole("product owner");
 
-            sprint.AddMember(userThree);
-            userThree.SetRole("scrum master");
+            sprint.AddMember(memberThree);
+            memberThree.SetRole("scrum master");
 
             int expectedResult = 3;
             string expectedUserOneRole = "developer";
