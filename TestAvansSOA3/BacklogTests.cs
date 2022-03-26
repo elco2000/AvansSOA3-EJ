@@ -1,8 +1,11 @@
 ﻿using ApplicationAvansSOA3;
+using ApplicationAvansSOA3.AdapterNotification;
 using ApplicationAvansSOA3.State;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TestAvansSOA3
 {
@@ -256,7 +259,27 @@ namespace TestAvansSOA3
             // Assert
             Assert.AreEqual(toDoState.GetType(), backlogItem.GetState().GetType());
         }
-        
+
+        [TestMethod]
+        // TC-BL13: Een notificatie gaat door middel van versturen van een e-mail.
+        public void TestTCBL13()
+        {
+            // Arrange
+            Service service = new Service();
+            INotificationEmail notification = new Adapter(service);
+
+            // Act
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            notification.ConvertInformationToEmail("Test Notification");
+
+            string expectedResult = "Verzend email: Test Notification";
+
+            // Assert
+            Assert.AreEqual(expectedResult, stringWriter.ToString());
+        }
+
         [TestMethod]
         // TC-BL14: Binnen een backlog item moet de mogelijkheid zijn om meer activiteiten aan te maken.
         public void TestTCBL14()
@@ -320,8 +343,61 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-BL21: Alleen de (lead) developer mag de backlog item verplaatsen naar de fase done.
-        public void TestTCBL21()
+        // TC-BL17: De testers moeten een notificatie krijgen, zodra een backlog de fase “ready for testing” heeft bereikt.
+        public void TestTCBL17()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+            IMember userOne = new Developer();
+
+            // Act
+            userOne.SetRole("developer");
+            backlogItem.AddMember(userOne);
+            backlogItem.Subscribe(userOne);
+
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            backlogItem.BacklogItemDoing();
+            backlogItem.BacklogItemReadyForTesting();
+
+            string expectedResult = "Verzend email: Backlog item staat klaar in readyfortesting.";
+
+            // Assert
+            Assert.AreEqual(expectedResult, stringWriter.ToString());
+        }
+
+        [TestMethod]
+        // TC-BL18: De scrum master moet een notificatie krijgen, als een backlog item wordt terug geplaatst naar de fase to do.
+        public void TestTCBL18()
+        {
+            // Arrange
+            BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
+            IMember userOne = new ScrumMaster();
+
+            // Act
+            userOne.SetRole("scrum master");
+            backlogItem.Subscribe(userOne);
+
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            backlogItem.BacklogItemDoing();
+            backlogItem.BacklogItemReadyForTesting();
+            backlogItem.BacklogItemTested();
+            backlogItem.BacklogItemReadyForTesting();
+            backlogItem.BacklogItemTested();
+            backlogItem.BacklogItemReadyForTesting();
+
+            string expectedResult = "Verzend email: De backlog item is terug verplaatst naar todo.";
+
+            // Assert
+            Assert.AreEqual(expectedResult, stringWriter.ToString());
+        }
+
+        [TestMethod]
+        // TC-BL19: Alleen de (lead) developer mag de backlog item verplaatsen naar de fase done.
+        public void TestTCBL19()
         {
             // Arrange
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
@@ -346,8 +422,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-BL22: Alleen de (lead) developer mag de backlog item verplaatsen naar de fase done.
-        public void TestTCBL22()
+        // TC-BL20: Alleen de (lead) developer mag de backlog item verplaatsen naar de fase done.
+        public void TestTCBL20()
         {
             // Arrange
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
@@ -372,8 +448,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-BL23: Een lid van het project kan een discussie starten bij een bepaalde backlog item.
-        public void TestTCBL23()
+        // TC-BL21: Een lid van het project kan een discussie starten bij een bepaalde backlog item.
+        public void TestTCBL21()
         {
             // Arrange
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
@@ -388,8 +464,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-BL24: Een lid van het project kan reacties plaatsen bij een discussie bij een bepaalde backlog item.
-        public void TestTCBL24()
+        // TC-BL22: Een lid van het project kan reacties plaatsen bij een discussie bij een bepaalde backlog item.
+        public void TestTCBL22()
         {
             // Arrange
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
@@ -408,8 +484,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-BL25: Een lid van het project kan geen reacties meer plaatsen bij een discussie van een backlogitem als deze discussie gesloten is.
-        public void TestTCBL25()
+        // TC-BL23: Een lid van het project kan geen reacties meer plaatsen bij een discussie van een backlogitem als deze discussie gesloten is.
+        public void TestTCBL23()
         {
             // Arrange
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");
@@ -430,8 +506,8 @@ namespace TestAvansSOA3
         }
 
         [TestMethod]
-        // TC-BL26: Een lid van het project kan geen discussie meer aanpassen bij een backlog item als deze discussie gesloten is.
-        public void TestTCBL26()
+        // TC-BL24: Een lid van het project kan geen discussie meer aanpassen bij een backlog item als deze discussie gesloten is.
+        public void TestTCBL24()
         {
             // Arrange
             BacklogItem backlogItem = new BacklogItem("1. BacklogItem", "Doing some code");

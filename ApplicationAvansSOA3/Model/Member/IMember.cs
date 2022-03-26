@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationAvansSOA3.Observer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationAvansSOA3
 {
-    public interface IMember
+    public interface IMember : ISubscriber
     {
         public void SetName(string name);
         public string GetName();
