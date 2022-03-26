@@ -58,7 +58,7 @@ namespace TestAvansSOA3
 
             sprint.GenerateRapport("Release 1");
 
-            string expectedResult = "Verzend email: Sprint is gesloten. En Pipeline wordt gestart!De source code wordt opgehaald.\nDe packages worden op dit moment geïnstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
+            string expectedResult = "Verzend email: Sprint is gesloten. En Pipeline wordt gestart!De source code wordt opgehaald.\nDe packages worden op dit moment geinstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
 
             SprintStatus expectedStatus = SprintStatus.Finished;
 
@@ -101,7 +101,7 @@ namespace TestAvansSOA3
 
             package.ActivatedPackage();
 
-            string expectedResult = "De packages worden op dit moment geïnstalleerd.";
+            string expectedResult = "De packages worden op dit moment geinstalleerd.";
 
             // Assert
             Assert.AreEqual(expectedResult, stringWriter.ToString());
@@ -215,7 +215,7 @@ namespace TestAvansSOA3
 
             pipeline.StartPipeline();
 
-            string expectedResult = "De source code wordt opgehaald.\nDe packages worden op dit moment geïnstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
+            string expectedResult = "De source code wordt opgehaald.\nDe packages worden op dit moment geinstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
 
             // Assert
             Assert.AreEqual(expectedResult, stringWriter.ToString());
