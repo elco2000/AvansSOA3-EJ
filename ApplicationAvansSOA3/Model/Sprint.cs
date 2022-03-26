@@ -9,6 +9,8 @@ namespace ApplicationAvansSOA3
         private SprintStatus status;
         private bool isInPipeline;
         private IList<IMember> members;
+        private Pipeline pipeline;
+        private Backlog ?backlog;
 
         public Sprint(string name)
         {
@@ -16,16 +18,40 @@ namespace ApplicationAvansSOA3
             this.status = SprintStatus.Doing;
             this.isInPipeline = false;
             this.members = new List<IMember>();
+            this.pipeline = new Pipeline();
         }
 
         public void CloseSprint()
         {
+            bool isFinished = true;
             Service service = new Service();
             INotificationEmail notification = new Adapter(service);
 
-            notification.ConvertInformationToEmail("Sprint is gesloten.");
+            if (backlog != null)
+            {
+                foreach (var backlogItem in backlog.getBacklogItems())
+                {
+                    if (!backlogItem.Value.GetIsDone())
+                    {
+                        isFinished = false;
+                        break;
+                    }
+                }
+            }
 
-            this.status = SprintStatus.Finished;
+            if (isFinished && backlog != null)
+            {
+                notification.ConvertInformationToEmail("Sprint is gesloten. En Pipeline wordt gestart!");
+
+                this.status = SprintStatus.Finished;
+
+                SetIsInPipeline(true);
+
+                this.pipeline.StartPipeline();
+            } else
+            { 
+                notification.ConvertInformationToEmail("Sprint release is geannuleerd.");
+            }
         }
 
         public SprintStatus GetSprintStatus()
@@ -64,6 +90,16 @@ namespace ApplicationAvansSOA3
         {
             CloseSprint();
             return new Rapport(rapportName, this);
+        }
+
+        public void SetBacklog(Backlog backlog)
+        {
+            this.backlog = backlog;
+        }
+
+        public Backlog GetBacklog()
+        {
+            return this.backlog; 
         }
     }
 }

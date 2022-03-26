@@ -103,8 +103,15 @@ namespace TestAvansSOA3
         {
             // Arrange
             Sprint sprint = new Sprint("SprintTest");
+            Backlog backlog = new Backlog("1. Backlog", "Test code");
+            BacklogItem backlogItem = new BacklogItem("Testing code", "Testing all the code");
 
             // Act
+            backlogItem.SetIsDone(true);
+            backlog.AddBacklogItem(backlogItem);
+
+            sprint.SetBacklog(backlog);
+
             sprint.CloseSprint();
             SprintStatus expectedResult = SprintStatus.Finished;
 
@@ -134,14 +141,22 @@ namespace TestAvansSOA3
         {
             // Arrange
             Sprint sprint = new Sprint("SprintTest");
+            Backlog backlog = new Backlog("1. Backlog", "Test code");
+            BacklogItem backlogItem = new BacklogItem("Testing code", "Testing all the code");
 
             // Act
+            backlogItem.SetIsDone(true);
+            backlog.AddBacklogItem(backlogItem);
+
+            sprint.SetBacklog(backlog);
+
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
             sprint.GenerateRapport("Rapport 1");
-
-            string expectedResult = "Verzend email: Sprint is gesloten.";
+            
+            // String doet raar in gitactions pipeline?
+            string expectedResult = "Verzend email: Sprint is gesloten. En Pipeline wordt gestart!De source code wordt opgehaald.\nDe packages worden op dit moment geinstalleerd.\nDe software wordt gebuild. Maakt connectie met andere verschillende builds.\nDe code wordt getest met alle beschikbaar testen.\nDe code wordt geanalyseerd door SonarCloud.\nDe code wordt gedeployed op de gewenste omgeving.\nOverige commands worden uitgevoerd. De pipeline is succesvol voltooid!";
 
             // Assert
             Assert.AreEqual(expectedResult, stringWriter.ToString());
@@ -153,8 +168,15 @@ namespace TestAvansSOA3
         {
             // Arrange
             Sprint sprint = new Sprint("SprintTest");
+            Backlog backlog = new Backlog("1. Backlog", "Test code");
+            BacklogItem backlogItem = new BacklogItem("Testing code", "Testing all the code");
 
             // Act
+            backlogItem.SetIsDone(true);
+            backlog.AddBacklogItem(backlogItem);
+
+            sprint.SetBacklog(backlog);
+
             sprint.GenerateRapport("Rapport 1");
             SprintStatus expectedResult = SprintStatus.Finished;
 

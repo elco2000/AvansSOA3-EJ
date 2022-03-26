@@ -16,7 +16,7 @@ namespace ApplicationAvansSOA3.CompositePipeline
 
         public void ActivatedPackage()
         {
-            Console.Write("De packages worden op dit moment geïnstalleerd.");
+            Console.Write("De packages worden op dit moment geinstalleerd.");
         }
     }
 }
