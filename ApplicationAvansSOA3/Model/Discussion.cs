@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ApplicationAvansSOA3.AdapterNotification;
+using System.Collections;
 
 namespace ApplicationAvansSOA3
 {
@@ -28,6 +29,11 @@ namespace ApplicationAvansSOA3
         {
             if(!this.isClosed)
             {
+                Service service = new Service();
+                INotificationEmail notification = new Adapter(service);
+
+                notification.ConvertInformationToEmail("Reactie geplaatst bij: " + this.title + " - " + this.description);
+
                 responses.Add(new Response(title, text));
             }
         }
